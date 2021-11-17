@@ -1,3 +1,6 @@
+<?php include 'header.php';
+require_once 'model/blogpost.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,24 +18,12 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">My Blog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="post.html">Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="messages.html"><i class="fa fa-envelope-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <!-- Responsive navbar-->s
+    
         <!-- Page content-->
         <div class="container mt-5">
+            <form action="model/blogpost.php" method="POST">
+            
             <div class="row">
                 <div class="col-lg-8 align-self-start">
                     <div class="row">
@@ -49,63 +40,63 @@
                                 <form>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Title</label>
-                                        <input type="text" class="form-control mb-1">
+                                        <input type="text" class="form-control mb-1" name="title">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Description</label>
-                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Content</label>
-                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="5" name="content"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label class="mb-1 mt-3">Categories</label>
                                         <div class="row">
                                             <div class="col-lg-6">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                                    <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="checkboxx[]">
                                                     <label class="form-check-label" for="defaultCheck1">
-                                                      Default checkbox
+                                                      Web Design
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
+                                                    <input class="form-check-input" type="checkbox" value="2" id="defaultCheck2" name="checkboxx[]">
                                                     <label class="form-check-label" for="defaultCheck2">
-                                                      Default checkbox
+                                                      HTML
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
+                                                    <input class="form-check-input" type="checkbox" value="3" id="defaultCheck3" name="checkboxx[]">
                                                     <label class="form-check-label" for="defaultCheck3">
-                                                      Default checkbox
-                                                    </label>
+                                                      JavaScript
+                                                    </label> 
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
+                                                    <input class="form-check-input" type="checkbox" value="4" id="defaultCheck4" name="checkboxx[]" >
                                                     <label class="form-check-label" for="defaultCheck4">
-                                                      Default checkbox
+                                                      CSS
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
+                                                    <input class="form-check-input" type="checkbox" value="5" id="defaultCheck5" name="checkboxx[]">
                                                     <label class="form-check-label" for="defaultCheck5">
-                                                        Default checkbox
+                                                        Tutorials
                                                     </label>
                                                 </div>
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">
+                                                    <input class="form-check-input" type="checkbox" value="6" id="defaultCheck6" name="checkboxx[]">
                                                     <label class="form-check-label" for="defaultCheck6">
-                                                        Default checkbox
+                                                        Freebies
                                                     </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-primary mt-5">Post</button>
+                                    <button type="submit" class="btn btn-primary mt-5" name="new_post">Post</button>
                                 </form>
                             </section>
                         </div>
@@ -155,9 +146,7 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+       <?php include 'footer.php'; ?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

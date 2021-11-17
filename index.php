@@ -1,3 +1,6 @@
+<?php include 'header.php';
+require_once 'model/model.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,25 +19,13 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">My Blog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="post.html">Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="messages.html"><i class="fa fa-envelope-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+       
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
                 <div class="text-center my-5">
+      
+
                     <h1 class="fw-bolder">Welcome to Blog Home!</h1>
                     <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
                 </div>
@@ -43,17 +34,30 @@
         <!-- Page content-->
         <div class="container">
             <div class="row">
+            
                 <!-- Blog entries-->
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
+                    <?php  
+                                $obj = new model(); 
+                                $result = $obj->findAll("blog_post"); 
+                                foreach ($result as $row) :
+                          ?>
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
-                        <div class="card-body">
-                            <div class="small text-muted">January 1, 2021</div>
-                            <h2 class="card-title">Featured Post Title</h2>
-                            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                            <a class="btn btn-primary" href="article.html">Read more →</a>
-                        </div>
+                          
+                            <div class="card-body">
+                                <div class="small text-muted"><?php echo $row['created_date'];?></div>
+                                <h2 class="card-title"></h2><?php echo $row['title'];; ?></h2>
+                                <p class="card-text"><?php echo $row['description'];?></p>
+                                <form action="article.php" method="post">
+                                    <input type="hidden" name="id"  value="<?php $row['id'];?>">
+                                <input type="submit" name="readmore" class="btn btn-primary"value="Read more →" href="article.php"></input>
+                                </form>
+                            </div>
+                            <?php
+                            endforeach;
+                            ?>
                     </div>
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
@@ -65,7 +69,7 @@
                                     <div class="small text-muted">January 1, 2021</div>
                                     <h2 class="card-title h4">Post Title</h2>
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="article.html">Read more →</a>
+                                    <a class="btn btn-primary" href="article.php">Read more →</a>
                                 </div>
                             </div>
                             <!-- Blog post-->
@@ -75,7 +79,7 @@
                                     <div class="small text-muted">January 1, 2021</div>
                                     <h2 class="card-title h4">Post Title</h2>
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="article.html">Read more →</a>
+                                    <a class="btn btn-primary" href="article.php">Read more →</a>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +91,7 @@
                                     <div class="small text-muted">January 1, 2021</div>
                                     <h2 class="card-title h4">Post Title</h2>
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla.</p>
-                                    <a class="btn btn-primary" href="article.html">Read more →</a>
+                                    <a class="btn btn-primary" href="article.php">Read more →</a>
                                 </div>
                             </div>
                             <!-- Blog post-->
@@ -97,7 +101,7 @@
                                     <div class="small text-muted">January 1, 2021</div>
                                     <h2 class="card-title h4">Post Title</h2>
                                     <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam.</p>
-                                    <a class="btn btn-primary" href="article.html">Read more →</a>
+                                    <a class="btn btn-primary" href="article.php">Read more →</a>
                                 </div>
                             </div>
                         </div>
@@ -159,9 +163,8 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+        <?php include 'footer.php' ?>
+
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
