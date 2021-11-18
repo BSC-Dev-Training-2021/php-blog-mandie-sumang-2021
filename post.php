@@ -1,5 +1,8 @@
 <?php include 'header.php';
-require_once 'model/blogpost.php';
+require_once 'model/blog_post.php';
+require_once 'model/blogpost_cat.php';
+require_once 'model/cat_types.php';
+require_once 'controller/post_con.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,12 +21,10 @@ require_once 'model/blogpost.php';
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        <!-- Responsive navbar-->s
-    
+        <!-- Responsive navbar-->
+        
         <!-- Page content-->
         <div class="container mt-5">
-            <form action="model/blogpost.php" method="POST">
-            
             <div class="row">
                 <div class="col-lg-8 align-self-start">
                     <div class="row">
@@ -37,66 +38,43 @@ require_once 'model/blogpost.php';
                             </header>
                             <!-- Post content-->
                             <section class="mb-5">
-                                <form>
+                                <form action="post.php" method="POST">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Title</label>
-                                        <input type="text" class="form-control mb-1" name="title">
+                                        <input type="text" class="form-control mb-1" name='title'>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Description</label>
-                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="3" name="description"></textarea>
+                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="3" name='description'></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Content</label>
-                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="5" name="content"></textarea>
+                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="5" name='content'></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label class="mb-1 mt-3">Categories</label>
                                         <div class="row">
+                                        <?php 
+
+                                        $blogpost_obj=new cat_types();
+                                        $result=$blogpost_obj->findAll();
+                                        foreach ($result as $data) {
+
+                                        ?>
                                             <div class="col-lg-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="1" id="defaultCheck1" name="checkboxx[]">
-                                                    <label class="form-check-label" for="defaultCheck1">
-                                                      Web Design
+                                                <div class="form-check">    
+                                                    <input class="form-check-input" type="checkbox" value="<?php echo $data['id']; ?>" id="checkbox<?php echo $data['id']; ?>" name="checkbox[]">✔
+                                                    <label class="form-check-label" for="checkbox<?php echo $data['id']; ?>">
+                                                      <?php echo $data['name']; ?>
                                                     </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="2" id="defaultCheck2" name="checkboxx[]">
-                                                    <label class="form-check-label" for="defaultCheck2">
-                                                      HTML
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="3" id="defaultCheck3" name="checkboxx[]">
-                                                    <label class="form-check-label" for="defaultCheck3">
-                                                      JavaScript
-                                                    </label> 
-                                                </div>
+                                                </div>  
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="4" id="defaultCheck4" name="checkboxx[]" >
-                                                    <label class="form-check-label" for="defaultCheck4">
-                                                      CSS
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="5" id="defaultCheck5" name="checkboxx[]">
-                                                    <label class="form-check-label" for="defaultCheck5">
-                                                        Tutorials
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="6" id="defaultCheck6" name="checkboxx[]">
-                                                    <label class="form-check-label" for="defaultCheck6">
-                                                        Freebies
-                                                    </label>
-                                                </div>
-                                            </div>
+
+                                              <?php } ?>
                                         </div>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-primary mt-5" name="new_post">Post</button>
+                                    <button type="submit" class="btn btn-primary mt-5" name="submit_post">Post</button>
                                 </form>
                             </section>
                         </div>
@@ -146,7 +124,7 @@ require_once 'model/blogpost.php';
             </div>
         </div>
         <!-- Footer-->
-       <?php include 'footer.php'; ?>
+        <?php include 'footer.php';?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

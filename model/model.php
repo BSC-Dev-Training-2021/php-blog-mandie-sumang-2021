@@ -1,114 +1,77 @@
 <?php
-
     class model {
-       public $table;
-
-       function __construct($tablename= ''){
-
-        $this->table = $tablename; 
-        $this->connect();  
-    }
-       
-        private function connect()
-        {
-
-        $user="Sumang";
-        $pass="";
-        $pdo = null;
-        $db_name ="blog";
-        $this->db = new PDO('mysql:host=localhost;dbname=' . $db_name . ';charset=utf8', $user, $pass);
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+        
+        function __construct($tableName){
+            $this->conn = mysqli_connect("localhost", "Sumang", "", "blog");  
+               if(!$this->conn)  
+               {  
+                    echo 'Database Connection Error ' . mysqli_connect_error($this->conn);  
+               }
+            $this->tableName = $tableName;
+            $this->id=0;
         }
 
-        
-        function insert(){
-            
-            
-
-            if(isset($_POST['new_post'])){
- 
-                      $title = $_POST['title'];
-                      $description = $_POST['description'];
-                     $content = $_POST['content'];
-                     $created_by = '1';
-                      $created = date("Y-m-d H:i:s");
-                      
-                    
- 
-                     
-                         $sql ="INSERT INTO blog_post ( `content`, `title`,  `created_by`, `created`, `description`) VALUES (?,?,?,?,?)";
-                         $stmtinsert = $this->db->prepare($sql);
-                         $result = $stmtinsert->execute([$content,$title,$created_by,$created,$description]);
-                         $id = $this->db->lastInsertId();
-                         header ('location: ../post.php');
-                     
-    
-                       
-            }
-             
-             
-         }
-         
-        
-        function findAll($tbl_post){
-       
-             try {  
-            $sql="SELECT * FROM $tbl_post order by id DESC";  
-            $q = $this->db->query($sql) or die("Owshiii!");
-
-            while($r = $q->fetch(PDO::FETCH_ASSOC)){  $data[]=$r;  }  
-            return $data;
-
-             }
-            catch(PDOException $e)
-            {
-        echo 'Query failed'.$e->getMessage();
-            }
-            
-
+        function findAll(){
+                        /*
+                put your generic SELECT query here
+            */
+                $res=0;
+            $sql = "SELECT * FROM $this->tableName";
+            $rows = $this->conn->query($sql);
+            $result = [];
            
-        }
-    }
+           
+            if ($rows->num_rows > 0) {  
+            while($row = $rows->fetch_assoc())  { 
+            $result[] = $row;
+                                                }
+                                     } 
+            return $result;
+                         }
+
         function findById($id){
 
+            $sql = "SELECT * FROM $this->tableName where id=$id";
+            $rows = $this->conn->query($sql);
+            $find_id_result = [];
+            if ($rows->num_rows > 0) {
+                // display data from the query
+                while($row = $rows->fetch_assoc()) {
+                $find_id_result[] = $row; 
 
-        }
+                                                   }
+                                     } 
+            return $find_id_result;
+            return $find_id_result['id'];
 
+
+
+
+                              }
+
+
+        function insertPost($data){
+
+
+            $dataColumnKeys = [];
+            $dataColumnValues = [];
+            
+            foreach($data as $dataColKey => $dataColValue){
+                $dataColKeys[] =$dataColKey; 
+                $dataColValues[] =$dataColValue; 
+                                                                }
+
+            
+
+            $sql=mysqli_query($this->conn,"INSERT INTO ".$this->tableName." (".implode(",",$dataColKeys).") 
+            VALUES ('".implode("','",$dataColValues)."')");
+            
+            if ($sql) {
+                 $this->id = mysqli_insert_id($this->conn);
+
+            }
+            
         
-    
-
-    
-    ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
+        }
+}
+?>

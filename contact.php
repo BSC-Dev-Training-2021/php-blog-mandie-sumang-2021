@@ -1,6 +1,4 @@
-<?php include 'header.php';
-
-?>
+<?php include 'header.php';?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,7 +16,8 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body>
-        
+        <!-- Responsive navbar-->
+     
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
@@ -97,8 +96,7 @@
             </div>
         </div>
         <!-- Footer-->
-        <?php include 'footer.php' ?>
-
+        <?php include 'footer.php';?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
