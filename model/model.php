@@ -13,7 +13,7 @@
 
         function findAll(){
                         /*
-                put your generic SELECT query here
+              
             */
                 $res=0;
             $sql = "SELECT * FROM $this->tableName";
@@ -31,7 +31,7 @@
 
         function findById($id){
 
-            $sql = "SELECT * FROM $this->tableName where id=$id";
+            $sql = "SELECT * FROM $this->tableName where id=$id ";
             $rows = $this->conn->query($sql);
             $find_id_result = [];
             if ($rows->num_rows > 0) {
@@ -50,11 +50,33 @@
                               }
 
 
+                              function findIdComment($id){
+
+                                $res=0;
+                                $sql = "SELECT * FROM $this->tableName";
+                                $rows = $this->conn->query($sql);
+                                $result = [];
+                               
+                               
+                                if ($rows->num_rows > 0) {  
+                                while($row = $rows->fetch_assoc())  { 
+                                $result[] = $row;
+                                                                    }
+                                                         } 
+                                return $result;
+                               
+                    
+                    
+                    
+                    
+                                                  }
+
+
         function insertPost($data){
 
 
-            $dataColumnKeys = [];
-            $dataColumnValues = [];
+            $dataColKeys = [];
+            $dataColValues = [];
             
             foreach($data as $dataColKey => $dataColValue){
                 $dataColKeys[] =$dataColKey; 
