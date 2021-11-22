@@ -51,21 +51,25 @@
 
 
                               function findIdComment($id){
+                                 
 
-                                $res=0;
-                                $sql = "SELECT * FROM $this->tableName";
+                                $sql = "SELECT *  FROM $this->tableName where blog_post_id = $id ";
+                                
                                 $rows = $this->conn->query($sql);
-                                $result = [];
-                               
-                               
-                                if ($rows->num_rows > 0) {  
-                                while($row = $rows->fetch_assoc())  { 
-                                $result[] = $row;
-                                                                    }
-                                                         } 
-                                return $result;
-                               
+
+                                $find_id_result = [];
+                                if ($rows->num_rows > 0) {
+                                    // display data from the query
+                                    while($row = $rows->fetch_assoc()) {
+                                    $find_id_result[] = $row; 
                     
+                                                                       }
+                                                         } 
+                                return $find_id_result;
+                                return $find_id_result['id'];
+                               
+                                
+                              
                     
                     
                     

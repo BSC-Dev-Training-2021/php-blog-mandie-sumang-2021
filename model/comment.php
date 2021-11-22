@@ -5,8 +5,8 @@
         function __construct(){
             parent::__construct("blog_post_comment");
         }
-
-    }   
+    }
+    
 
 
  ?>

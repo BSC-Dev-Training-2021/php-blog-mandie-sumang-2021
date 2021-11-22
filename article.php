@@ -4,6 +4,7 @@ require_once 'model/blogpost_cat.php';
 require_once 'model/blog_post.php';
 require_once 'model/cat_types.php';
 require_once 'controller/comment_con.php';
+require_once 'model/usertbl.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,9 +34,9 @@ require_once 'controller/comment_con.php';
                     <!-- Post content-->
                      <?php 
                     require_once 'model/blog_post.php';
-                    require 'model/user.php';
+                  ;
                     $id = 1;
-                    $username = new user();
+                    $username = new usertbl();
                     $userId= $username->findById($id);
                   
                    
@@ -95,27 +96,37 @@ require_once 'controller/comment_con.php';
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                 <?php 
-                                    
-                                    $blogComment_obj= new comment();
-                                    $results=$blogComment_obj->findIdComment();
-                            
-                                    foreach ($results as $data) { ?>
-                                    <!-- Featured blog post-->
-                                    <!-- Parent comment-->
+                               
+                                
+                                        $id = $_GET['id'];
+                                        $blogpost_obj=new comment();
+                                        $result=$blogpost_obj->findIdComment($id);
+
+                                        
+
+                                        foreach ($result as $data) {
+                                            
+                                        ?>
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">
-                            </div>
-                                       123
-                                      
-                                      <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold"><?php echo $data['comment'];?></div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                       <?php 
+                                        echo 'Sumang';
+                                           
+                            
+                                       
+                                    
+                                       
+                                       ?>
+                                    </div>
+                                    <?php 
+                                        echo $data['comment'];
+                                          
+                                    }    
+                                       ?>
                                             </div>
-                                        </div>  -->
-                                        <?php }?>
+                                        </div> 
+                                      
                                         <!-- <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
