@@ -1,3 +1,8 @@
+<?php include 'header.php';
+require_once 'model/blog_post.php';
+ 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,21 +21,7 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">My Blog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="post.html">Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="messages.html"><i class="fa fa-envelope-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+      
         <!-- Page header with logo and tagline-->
         <header class="py-5 bg-light border-bottom mb-4">
             <div class="container">
@@ -45,7 +36,38 @@
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
+                    <?php 
+                    
+                    $blogdata_obj= new blog_post();
+                    $results=$blogdata_obj->findAll();
+            
+                     foreach ($results as $data) { ?>
                     <!-- Featured blog post-->
+                    <div class="card mb-4">
+                        <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
+                        <div class="card-body">
+                            <div class="small text-muted"><?php echo $data['created']; ?></div>
+                            <h2 class="card-title"><?php echo $data['title']; ?></h2>
+                            <p class="card-text"><?php echo $data['description']; ?></p>
+                            <form method="get">
+                                <a class="btn btn-primary" name="id" href="article.php?id=<?php echo $data['id']; ?> ">Read more →</a>
+                            </form>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div class="card mb-4">
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
                         <div class="card-body">
@@ -159,9 +181,7 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+        <?php include 'footer.php';?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

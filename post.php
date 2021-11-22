@@ -1,3 +1,9 @@
+<?php include 'header.php';
+require_once 'model/blog_post.php';
+require_once 'model/blogpost_cat.php';
+require_once 'model/cat_types.php';
+require_once 'controller/post_con.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,21 +22,7 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">My Blog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="post.html">Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="messages.html"><i class="fa fa-envelope-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        
         <!-- Page content-->
         <div class="container mt-5">
             <div class="row">
@@ -46,66 +38,43 @@
                             </header>
                             <!-- Post content-->
                             <section class="mb-5">
-                                <form>
+                                <form action="post.php" method="POST">
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Title</label>
-                                        <input type="text" class="form-control mb-1">
+                                        <input type="text" class="form-control mb-1" name='title'>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Description</label>
-                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="3" name='description'></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleFormControlTextarea1" class="mb-1">Content</label>
-                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="5"></textarea>
+                                        <textarea class="form-control mb-1" id="exampleFormControlTextarea1" rows="5" name='content'></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label class="mb-1 mt-3">Categories</label>
                                         <div class="row">
+                                        <?php 
+
+                                        $blogpost_obj=new cat_types();
+                                        $result=$blogpost_obj->findAll();
+                                        foreach ($result as $data) {
+
+                                        ?>
                                             <div class="col-lg-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                                    <label class="form-check-label" for="defaultCheck1">
-                                                      Default checkbox
+                                                <div class="form-check">    
+                                                    <input class="form-check-input" type="checkbox" value="<?php echo $data['id']; ?>" id="checkbox<?php echo $data['id']; ?>" name="checkbox[]">✔
+                                                    <label class="form-check-label" for="checkbox<?php echo $data['id']; ?>">
+                                                      <?php echo $data['name']; ?>
                                                     </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck2">
-                                                    <label class="form-check-label" for="defaultCheck2">
-                                                      Default checkbox
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck3">
-                                                    <label class="form-check-label" for="defaultCheck3">
-                                                      Default checkbox
-                                                    </label>
-                                                </div>
+                                                </div>  
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck4">
-                                                    <label class="form-check-label" for="defaultCheck4">
-                                                      Default checkbox
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck5">
-                                                    <label class="form-check-label" for="defaultCheck5">
-                                                        Default checkbox
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck6">
-                                                    <label class="form-check-label" for="defaultCheck6">
-                                                        Default checkbox
-                                                    </label>
-                                                </div>
-                                            </div>
+
+                                              <?php } ?>
                                         </div>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-primary mt-5">Post</button>
+                                    <button type="submit" class="btn btn-primary mt-5" name="submit_post">Post</button>
                                 </form>
                             </section>
                         </div>
@@ -155,9 +124,7 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+        <?php include 'footer.php';?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

@@ -1,3 +1,11 @@
+<?php include 'header.php';
+require_once 'model/comment.php';
+require_once 'model/blogpost_cat.php';
+require_once 'model/blog_post.php';
+require_once 'model/cat_types.php';
+require_once 'controller/comment_con.php';
+require_once 'model/usertbl.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,34 +24,48 @@
     </head>
     <body>
         <!-- Responsive navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="#!">My Blog</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-                        <li class="nav-item"><a class="nav-link" href="post.html">Post</a></li>
-                        <li class="nav-item"><a class="nav-link" href="messages.html"><i class="fa fa-envelope-o"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        
         <!-- Page content-->
+
+        <form action="" method="POST">
         <div class="container mt-5">
             <div class="row">
                 <div class="col-lg-8">
                     <!-- Post content-->
-                    <article>
+                     <?php 
+                    require_once 'model/blog_post.php';
+                  ;
+                    $id = 1;
+                    $username = new usertbl();
+                    $userId= $username->findById($id);
+                  
+                   
+                    if (isset($_GET['id'])) {
+                        $id=$_GET['id'];
+                        
+                        $post_obj= new blog_post();
+                     
+                        $find_id_results=$post_obj->findById($id);                    
+                        {
+                            foreach ($find_id_results as $data){} 
+                        }?>
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h1 class="fw-bolder mb-1">Welcome to Blog Post!</h1>
+                            <h1 class="fw-bolder mb-1"><?php echo $data['title']; ?></h1>
                             <!-- Post meta content-->
-                            <div class="text-muted fst-italic mb-2">Posted on January 1, 2021 by Start Bootstrap</div>
+
+
+                           
+
+
+
+                            <div class="text-muted fst-italic mb-2">Posted on <?php echo $data['created']; ?>  by <?php foreach($userId as $dataId){
+                                echo $dataId['name'];
+                            }?> </div>
                             <!-- Post categories-->
+                           
+
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
                             <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a>
                         </header>
@@ -51,60 +73,77 @@
                         <figure class="mb-4"><img class="img-fluid rounded" src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="..." /></figure>
                         <!-- Post content-->
                         <section class="mb-5">
-                            <p class="fs-5 mb-4">Science is an enterprise that should be cherished as an activity of the free human mind. Because it transforms who we are, how we live, and it gives us an understanding of our place in the universe.</p>
-                            <p class="fs-5 mb-4">The universe is large and old, and the ingredients for life as we know it are everywhere, so there's no reason to think that Earth would be unique in that regard. Whether of not the life became intelligent is a different question, and we'll see if we find that.</p>
-                            <p class="fs-5 mb-4">If you get asteroids about a kilometer in size, those are large enough and carry enough energy into our system to disrupt transportation, communication, the food chains, and that can be a really bad day on Earth.</p>
-                            <h2 class="fw-bolder mb-4 mt-5">I have odd cosmic thoughts every day</h2>
-                            <p class="fs-5 mb-4">For me, the most fascinating interface is Twitter. I have odd cosmic thoughts every day and I realized I could hold them to myself or share them with people who might be interested.</p>
-                            <p class="fs-5 mb-4">Venus has a runaway greenhouse effect. I kind of want to know what happened there because we're twirling knobs here on Earth without knowing the consequences of it. Mars once had running water. It's bone dry today. Something bad happened there as well.</p>
-                        </section>
+                            <p class="fs-5 mb-4"><?php echo $data['content']; ?> </p>
+                       </section>
+                       <?php } ?>
                     </article>
                     <!-- Comments section-->
                     <section class="mb-5">
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4">
+                                <form class="mb-4"  action="article.php" method="POST">
+                              
                                     <div>
-                                        <textarea class="form-control mb-2" rows="3" placeholder="Join the discussion and leave a comment!"></textarea>
+                                        <textarea class="form-control mb-2" rows="3" placeholder="Join the discussion and leave a comment!" name="text_comment"></textarea>
                                     </div>
                                     <div>
-                                        <button type="submit" class="btn btn-primary">Post Comment</button>
+                                        <button type="submit" class="btn btn-primary" name="but_comment">Post Comment</button>
                                     </div>
                                 </form>
+                               
+
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
-                                    <!-- Parent comment-->
+                                <?php 
+                               
+                                
+                                        $id = $_GET['id'];
+                                        $blogpost_obj=new comment();
+                                        $result=$blogpost_obj->findIdComment($id);
+
+                                        
+
+                                        foreach ($result as $data) {
+                                            
+                                        ?>
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        If you're going to lead a space frontier, it has to be government; it'll never be private enterprise. Because the space frontier is dangerous, and it's expensive, and it has unquantified risks.
-                                        <!-- Child comment 1-->
-                                        <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                And under those conditions, you cannot establish a capital-market evaluation of that enterprise. You can't get investors.
+                                        <div class="fw-bold">
+                                       <?php 
+                                        echo 'Sumang';
+                                           
+                            
+                                       
+                                    
+                                       
+                                       ?>
+                                    </div>
+                                    <?php 
+                                        echo $data['comment'];
+                                          
+                                    }    
+                                       ?>
                                             </div>
-                                        </div>
-                                        <!-- Child comment 2-->
-                                        <div class="d-flex mt-4">
+                                        </div> 
+                                      
+                                        <!-- <div class="d-flex mt-4">
                                             <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                             <div class="ms-3">
                                                 <div class="fw-bold">Commenter Name</div>
                                                 When you put money directly to a problem, it makes a good headline.
-                                            </div>
-                                        </div>
+                                            </div> 
+                                        </div> -->
                                     </div>
                                 </div>
                                 <!-- Single comment-->
-                                <div class="d-flex">
+                                <!-- <div class="d-flex">
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">Commenter Name</div>
                                         When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </section>
@@ -152,9 +191,7 @@
             </div>
         </div>
         <!-- Footer-->
-        <footer class="py-5 bg-dark">
-            <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
-        </footer>
+        <?php include 'footer.php';?>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
