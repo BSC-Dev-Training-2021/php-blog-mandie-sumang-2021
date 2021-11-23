@@ -2,10 +2,10 @@
 
 
 $blogpost_obj= new blog_post();
-$blogpost_cat= new blogpost_cat();
+$blogpost_cate= new blogpost_cat();
 
 if (isset($_REQUEST['submit_post'])) {
-    $checkbox=$_REQUEST['checkbox'];
+    $checkbox= $_REQUEST['checkbox'];
     
     
     $title=$_REQUEST['title'];
@@ -20,8 +20,8 @@ if (isset($_REQUEST['submit_post'])) {
         'created' => date("Y-m-d H:i:s")
         
       
- 
-    );  
+    );
+     
 
     $blogpost_obj->insertPost($postToInsert);
 
@@ -34,6 +34,14 @@ if (isset($_REQUEST['submit_post'])) {
             'blog_post_id'=> $return_id,
             'category_id'=> $value
         );
-         $blogpost_cat->insertPost($setdata);
-    }
-} ?>
+         $blogpost_cate->insertPost($setdata);
+    } 
+
+
+
+               
+ 
+
+
+
+}  ?>

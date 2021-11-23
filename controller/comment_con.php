@@ -26,12 +26,12 @@ if (isset($_REQUEST['but_comment'])) {
 
    $return_id=$comment_post->id;
         
-    // foreach ($checkbox as $value) {
+//     foreach ($checkbox as $value) {
 
-    //     $setdata= array(
-    //         'blog_post_id'=> $return_id,
-    //         'category_id'=> $value
-    //     );
-    //      $blogpost_cat->insertPost($setdata);
-    // }
+//         $setdata= array(
+//             'blog_post_id'=> $return_id,
+//             'category_id'=> $value
+//         );
+//          $blogpost_cat->insertPost($setdata);
+//     }
 }?>
