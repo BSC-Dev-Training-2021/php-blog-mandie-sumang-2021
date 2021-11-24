@@ -55,11 +55,6 @@ require_once 'model/usertbl.php';
                             <h1 class="fw-bolder mb-1"><?php echo $data['title']; ?></h1>
                             <!-- Post meta content-->
 
-
-                           
-
-
-
                             <div class="text-muted fst-italic mb-2">Posted on <?php echo $data['created']; ?>  by <?php foreach($userId as $dataId){
                                 echo $dataId['name'];
                             }?> </div>
@@ -92,31 +87,27 @@ require_once 'model/usertbl.php';
                                     </div>
                                 </form>
                                
-
-                                <!-- Comment with nested comments-->
-                                <div class="d-flex mb-4">
                                 <?php 
                                
                                 
-                                        $id = $_GET['id'];
-                                        $blogpost_obj=new comment();
-                                        $result=$blogpost_obj->findIdComment($id);
+                               $id = $_GET['id'];
+                               $blogpost_obj=new comment();
+                               $result=$blogpost_obj->findIdComment($id);
 
-                                        
+                               
 
-                                        foreach ($result as $data) {
-                                            
-                                        ?>
+                               foreach ($result as $data) {
+                                   
+                               ?>
+                                <!-- Comment with nested comments-->
+                                <div class="d-flex mb-4">
+                                
                                     <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
                                     <div class="ms-3">
                                         <div class="fw-bold">
                                        <?php 
                                         echo 'Sumang';
-                                           
-                            
-                                       
-                                    
-                                       
+                                 
                                        ?>
                                     </div>
                                     <?php 
@@ -124,30 +115,15 @@ require_once 'model/usertbl.php';
                                           
                                     }    
                                        ?>
-                                            </div>
+                                           
                                         </div> 
                                       
-                                        <!-- <div class="d-flex mt-4">
-                                            <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                            <div class="ms-3">
-                                                <div class="fw-bold">Commenter Name</div>
-                                                When you put money directly to a problem, it makes a good headline.
-                                            </div> 
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <!-- Single comment-->
-                                <!-- <div class="d-flex">
-                                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                                    <div class="ms-3">
-                                        <div class="fw-bold">Commenter Name</div>
-                                        When I look at the universe and all the ways the universe wants to kill us, I find it hard to reconcile that with statements of beneficence.
-                                    </div>
-                                </div> -->
+                                   
                             </div>
                         </div>
                     </section>
                 </div>
+                             
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
@@ -161,7 +137,7 @@ require_once 'model/usertbl.php';
                         </div>
                     </div>
                     <?php include 'side_category.php';?>
-                </div>
+                </div></div>
             </div>
         </div>
         <!-- Footer-->

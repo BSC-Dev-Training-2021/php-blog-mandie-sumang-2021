@@ -11,23 +11,18 @@
             $this->id=0;
         }
 
-        function findAll(){
-                        /*
-              
-            */
+        function findAll(){  
                 $res=0;
             $sql = "SELECT * FROM $this->tableName";
             $rows = $this->conn->query($sql);
-            $result = [];
-           
-           
+            $result = [];   
             if ($rows->num_rows > 0) {  
             while($row = $rows->fetch_assoc())  { 
             $result[] = $row;
-                                                }
-                                     } 
+      }
+      } 
             return $result;
-                         }
+      }
 
         function findById($id){
 
@@ -39,41 +34,42 @@
                 while($row = $rows->fetch_assoc()) {
                 $find_id_result[] = $row; 
 
-                                                   }
-                                     } 
+}
+} 
             return $find_id_result;
             return $find_id_result['id'];
 
 
 
 
-                              }
+}
 
 
-                              function findIdComment($id){
+    function findIdComment($id){
                                  
 
-                                $sql = "SELECT *  FROM $this->tableName where blog_post_id = $id ";
+    $sql = "SELECT *  FROM $this->tableName where blog_post_id = $id ";
                                 
-                                $rows = $this->conn->query($sql);
+    $rows = $this->conn->query($sql);
 
-                                $find_id_result = [];
-                                if ($rows->num_rows > 0) {
-                                    // display data from the query
-                                    while($row = $rows->fetch_assoc()) {
-                                    $find_id_result[] = $row; 
+    $find_id_result = [];
+    if ($rows->num_rows > 0) {
+                                  
+    while($row = $rows->fetch_assoc()) {
+    $find_id_result[] = $row; 
                     
-                                                                       }
-                                                         } 
-                                return $find_id_result;
-                                return $find_id_result['id'];
+    }
+    } 
+     return $find_id_result;
+     return $find_id_result['id'];
                                
                                 
                               
                     
                     
                     
-                                                  }
+   }
+                              
 
 
         function insertPost($data){
@@ -99,5 +95,19 @@
             
         
         }
+
+       
+
+        function update($data)
+        {
+            foreach ($data as $key => $datas) {
+               $columnArr []= $key;
+               $dataArr []= $datas;
+               $mysql = $this->conn->query("UPDATE $this->tableName SET $key = '" .$datas. "'  WHERE id='".$_SESSION['id_cat']."' ");
+            }
+        }
+
+      
+
 }
 ?>
