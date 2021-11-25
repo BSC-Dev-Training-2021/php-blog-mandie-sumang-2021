@@ -58,14 +58,14 @@ require_once 'controller/post_con.php';
 
                                         $blogpost_obj=new cat_types();
                                         $result=$blogpost_obj->findAll();
-                                        foreach ($result as $datas) {
+                                        foreach ($result as $data) {
 
                                         ?>
                                             <div class="col-lg-6">
                                                 <div class="form-check">    
-                                                    <input class="form-check-input" type="checkbox" value="<?php echo $datas['id']; ?>" id="checkbox<?php echo $datas['id']; ?>" name="checkbox[]">✔
-                                                    <label class="form-check-label" for="checkbox<?php echo $datas['id']; ?>">
-                                                      <?php echo $datas['name']; ?>
+                                                    <input class="form-check-input" type="checkbox" value="<?php echo $data['id']; ?>" id="checkbox<?php echo $datas['id']; ?>" name="checkbox[]">✔
+                                                    <label class="form-check-label" for="checkbox<?php echo $data['id']; ?>">
+                                                      <?php echo $data['name']; ?>
                                                     </label>
                                                 </div>  
                                             </div>
@@ -90,6 +90,7 @@ require_once 'controller/post_con.php';
                             <div class="input-group">
                                 <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
                                 <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                                <?php include 'side_category.php';?>
                             </div>
                         </div>
                     </div>

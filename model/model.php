@@ -72,29 +72,22 @@
                               
 
 
-        function insertPost($data){
+   function insertPost($data){
+       
+    $dataColumnKeys = [];
+    $dataColumnValues = [];
+    
+    foreach($data as $dataColumnKey => $dataColumnValue){
+        $dataColumnKeys[] = $dataColumnKey; 
+        $dataColumnValues[] = $dataColumnValue; 
+    }
+    $sql = mysqli_query($this->conn,"INSERT INTO ".$this->tableName." (".implode(",",$dataColumnKeys).") VALUES ('".implode("','",$dataColumnValues)."')");
+    
+    if ($sql) {
+         $this->id = mysqli_insert_id($this->conn);
+    }
+}
 
-
-            $dataColKeys = [];
-            $dataColValues = [];
-            
-            foreach($data as $dataColKey => $dataColValue){
-                $dataColKeys[] =$dataColKey; 
-                $dataColValues[] =$dataColValue; 
-                                                                }
-
-            
-
-            $sql=mysqli_query($this->conn,"INSERT INTO ".$this->tableName." (".implode(",",$dataColKeys).") 
-            VALUES ('".implode("','",$dataColValues)."')");
-            
-            if ($sql) {
-                 $this->id = mysqli_insert_id($this->conn);
-
-            }
-            
-        
-        }
 
        
 
@@ -107,6 +100,17 @@
             }
         }
 
+
+        function innerFilt($data)
+    {
+        $sql="SELECT  bp.id,bp.content,bp.updated,bp.title,bp.description,bp.img_link,bp.created_by,bp.created  FROM blog_post bp 
+        INNER JOIN blog_post_categories bpc ON bp.id = bpc.blog_post_id
+        INNER JOIN category_types ct ON ct.id = bpc.category_id
+        WHERE ct.id= $data" ;
+        $run = $this->conn->query($sql);
+     
+        return $run;
+    }
       
 
 }

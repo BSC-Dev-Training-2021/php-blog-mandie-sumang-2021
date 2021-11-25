@@ -26,14 +26,22 @@ require_once 'model/blog_post.php';
                     <?php 
                     
                     $blogdata_obj= new blog_post();
-                    $results=$blogdata_obj->findAll();
+                    
+                    if(isset($_GET['filtId'])){
+                        $results=$blogdata_obj->innerFilt($_GET['filtId']);
+                    }
+                    else{
+                        $results=$blogdata_obj->findAll();
+                    }
+
                     $filt = 1;
                      foreach ($results as $data){
                      
                      if ($filt === 1)
                      
                      { ?>
-                    <!-- Featured blog post-->
+                    <!-- BIG DICK -->
+                   
                     <div class="card mb-4">
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/850x350/dee2e6/6c757d.jpg" alt="..." /></a>
                         <div class="card-body">
@@ -53,7 +61,7 @@ require_once 'model/blog_post.php';
                     {
                     ?>
 
-
+                        <!-- ///SMALL DICK -->
                     <div class="col-lg-6">
                      <div class="card mb-4">
                         <a href="#!"><img class="card-img-top" src="https://dummyimage.com/700x350/dee2e6/6c757d.jpg" alt="..." /></a>
